@@ -1,0 +1,104 @@
+This project is an implementation of the Perceptron algorithm to learn whether or not to
+call "Tichu" on a set of cards. The training set was gathered from www.brettspielwelt.de for
+all decision calls made by the best 45 Tichu players.
+
+A summary of all the feature functions I created are in testfunctions.py. I also used this
+script to test all my functions. To do this, you can open testfunctions.py, modify the
+hand variable as you wish, and then run 'python testfunctions.py', which will give you the
+feature vectors returned by all the feature functions on the given hand.
+
+The things I tried (or "classes" of things I tried) can be summarized as follows:
+
+-"Number of" features:
+Here, I used the feature functions numberOfCards(), numberOfEachHighCard(), numberOfHighCards(),
+getNumberOfLosers(), getNumberOfMiddles(), getNumberOfWinners(), getNumberOfAces(). If I use only
+these features, I obtain 71.64% correct, F = 0.55 with the regular perceptron and 87.62% correct,
+F = 0.65 with the averaged perceptron. One of these features in particular, numberOfCards(), performed
+really well, which is a little peculiar since the only thing that this function does is return the
+given list representation of the hand (which says how many cards of each type the hand has). My guess
+is that this was effective because this feature effectively distinguishes any hand uniquely, so it 
+provides a lot of "discriminating" information to the perceptron.
+
+-"Has a" features:
+Here, I used the feature functions hasPair(), hasTriple(), hasConsecutivePairs(), hasFullHouse(),
+hasStraight(), hasPhoenixAndDragon(). I think these features may help, especially the latter three,
+because they tell us that the hand has a "strong" group, which may be a distinguishing characteristich
+of Tichu-worthy hands. If I use only these features, I obtain 70.44% correct, F = 0.55 with the regular 
+perceptron and 87.58% correct, F = 0.65 with the averaged perceptron. 
+
+-"Average" features":
+Here, I used two functions: 
+
+averageValueOfHand(): which gives a weighted average of the hand, where
+the weights are the number of cards of each type, and the values are the position of the card 
+(which in a way reflects the "value" of the card, i.e. Dog is 0 and Phoenix is 15).
+
+averageOfLMD(): which returns the sum of winners, losers, and middles, divided by 18.
+
+My intention by adding these features is that the average will provide a good "overall" value
+of the "value" contained in each hand, but this did not really appear to improve the results.
+My hypothesis is that this average can be very misleading, and a high average does not neccesarily
+imply the hand is Tichu-worthy, in the sense that "you can be confident of getting the lead back
+with high groups until you get rid of all your cards, never relinquishing the lead to the opponents".
+
+-"Distance" features:
+Here, I used the feature function acesMinusFours(), which gives the difference between the number of Aces 
+and the number of cards less than 4.
+
+-"Goodness of hand" features:
+Here, I used the feature functions internetArticle() (which tries to implement the tip from the
+Internet Tichu strategy article provided in the writeup). I was expecting this feature to significantly
+improve the results, since this is really what defines a good hand, but it didn't. I think this is because
+my numberOfWinners(), numberOfLosers(), and numberOfMiddles() functions are not adequately "tuned", so that
+right now they could always be having more winners than losers, or viceversa. Ideally, I would play a lot
+around with how the number of winners, losers, and middles is obtained, as this is crucial for knowing
+whether a hand is good or not.
+
+There is no particular order in which I tried the features above. I started writing some "number of"
+features, and running both the regular and the averaged perceptron using each individual feature function,
+as I finished writing them. With this, I was hoping to see how "good" each individiual feature function was,
+and it turned out that the "numberOfCards()" was really good, with obtaining 80.44%, F = .62 with the regular 
+perceptron and 87.26%, F = 0.64 with the averaged perceptron.
+
+After doing the above, my next idea was to write as many feature functions as I could, hoping to use a very
+large feature vector that would gather a lot of information. Initiallly, I thought that more features would
+necessarily lead to better performance, but after I wrote most of the feature functions and ran a test that
+combined them all together, I discovered that this was not necessarily the case. After this, I tried removing
+some feature functions and discovered that the performance sometimes improved. This leads me to conclude that
+adding more feature functions is not necessarily the best approach, and I think this is because some features
+are not really "discriminating enough" in the sense that they do not provide any information that is relevant
+in distinguishing wether or not a hand is Tichu-worthy. However, it also looks like, on average, having more
+features will usually help.
+
+After I had so many features to choose from, I found that the challenge was really to try different subsets
+of features, and try to see which subsets perform best and try to guess the reasons. However, I found that
+this was very tedious, and that it was very difficult to find real reasons for why a specific subset worked
+or not. After this, I concluded that the best approach was just to keep adding more features, paying particular
+attention to the effect of the last feature added (sort of like a "marginal" effect of the feature, and possibly
+use this as an indicator of how "useful" the additional feaature was.
+
+The best performance I got was 88.68%, F = 0.68. This performance resulted from including the folllowing features:
+
+[1]+w2+w10+w11+w13+w14+w15+w16+w17+w18+w19+w22
+
+The mappings to the corresponding feature functions can be obtained by looking at the allCombined() function 
+in student.py. 
+
+After trying many things and not being able to surpass the 88.xx threshold, I tried changing the number of iterations
+for both the regular and the averaged percpetron. I decreased and increased the number of iterations of both perceptrons,
+tyring 5 iterations for the regular and 15 iterations for the averaged, and 15 iterations for the regular and 5 iterations
+for the average. None of these changes altered the performance significantly, so it looks like after a certain number of
+iterations, especially for the average perceptron, the resutls will not change that much.
+
+As an additional attempt to further improve my results I tried to implement a Voted Perceptron, 
+and the code is in perceptron.py, along with the predictor functions myVotedPerceptron() and votedPerceptronPredictor() 
+which are in controller.py. I had the intention of running a "weighted vote", in which the vote of each perceptron would
+be weighted by the "survival time" of the perceptron, which is simply the number of steps the perceptron successfully
+makes a prediction and therefore is not "updated".
+
+Unfortunately, after I implemented the voted perceptron, I noticed that running it 
+was taking too long, and this makes sense given that there are many, many models (tens of thousands), 
+and that each example needs to be subject to a vote. I noticed that each polling took about 5 seconds, 
+so if we wanted to run the voted perceptron on the development test, which contains 5,000 examples, then that would 
+take about 7 hours. I didn't have time to test it but I would be curious to see if the results are significantly better.
+

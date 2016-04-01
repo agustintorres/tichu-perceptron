@@ -1,0 +1,128 @@
+--------------------------------------------
+firstFeatureFunction
+
+python controller.py student tichu_hands.dev_test firstFeatureFunction.model myDotProductPredictor
+% correct: 80.92
+F1: 0.624409448819
+--------------------------------------------
+firstFeatureFunction - Averaged
+
+python controller.py student tichu_hands.dev_test firstFeatureFunction.model.averaged myDotProductPredictor
+% correct: 84.2
+F1: 0.59152016546
+--------------------------------------------
+numberOfCards
+
+python controller.py student tichu_hands.dev_test numberOfCards.model myDotProductPredictor 
+% correct: 80.44
+F1: 0.614960629921
+--------------------------------------------
+numberOfCards - Averaged
+
+python controller.py student tichu_hands.dev_test numberOfCards.model.averaged myDotProductPredictor 
+% correct: 87.26
+F1: 0.642736960179
+--------------------------------------------
+numberOfEachHighCard
+
+python controller.py student tichu_hands.dev_test numberOfEachHighCard.model myDotProductPredictor 
+% correct: 68.78
+F1: 0.524809741248
+--------------------------------------------
+numberOfEachHighCard - Averaged
+
+python controller.py student tichu_hands.dev_test numberOfEachHighCard.model.averaged myDotProductPredictor 
+% correct: 86.12
+F1: 0.62159214831
+
+--------------------------------------------
+numberOfHighCards
+
+python controller.py student tichu_hands.dev_test numberOfHighCards.model myDotProductPredictor 
+% correct: 80.94
+F1: 0.0
+--------------------------------------------
+numberOfHighCards - Averaged
+
+python controller.py student tichu_hands.dev_test numberOfHighCards.model.averaged myDotProductPredictor 
+% correct: 81.0
+F1: 0.00835073068894
+--------------------------------------------
+allCombined
+
+python controller.py student tichu_hands.dev_test allCombined.model myDotProductPredictor
+% correct: 66.26
+F1: 0.519783660689
+
+--------------------------------------------
+allCombined -Averaged
+
+python controller.py student tichu_hands.dev_test allCombined.model.averaged myDotProductPredictor
+% correct: 88.24
+F1: 0.675496688742
+--------------------------------------------
+allCombined with
+w4+w5+w6+w7+w8+w10+w11+w12+w13+w14+w15+w16+w18+w19+w22
+
+% correct: 62.68
+F1: 0.494856524093
+
+Averaged:
+% correct: 62.68
+F1: 0.494856524093
+
+--------------------------------------------
+allCombined with
+w2+w4+w5+w6+w7+w8+w10+w11+w12+w13+w14+w15+w16+w18+w19+w22
+
+% correct: 83.52
+F1: 0.647863247863
+
+Averaged:
+
+% correct: 88.44
+F1: 0.679245283019
+--------------------------------------------
+allCombined with
+w2+w4+w5+w6+w7+w8+w10+w11+w12+w13+w14+w15+w16+w18+w19+w22+w23
+
+% correct: 65.7
+F1: 0.517580872011
+
+Averaged:
+% correct: 88.48
+F1: 0.679644048943
+--------------------------------------------
+allCombined with
+[1]+w2+w10+w11+w13+w14+w15+w16+w17+w18+w19+w22
+
+% correct: 76.64
+F1: 0.59696342305
+
+Averaged:
+% correct: 88.68
+F1: 0.683798882682
+--------------------------------------------
+allCombined with
+w2+w3+w4+w5+w6+w7+w8
+
+% correct: 71.64
+F1: 0.55183312263
+
+% correct: 87.62
+F1: 0.652051714446
+--------------------------------------------
+allCombined with
+w1+w2+w3+w4+w5+w6+w7+w8+w9+w10+w11+w12+w13+w14+w15+w16+w17+w18+w19+w20+w21+w22+w23+w24+w25+w26+w27
+
+% correct: 83.12
+F1: 0.6320836966
+
+Averaged:
+% correct: 88.46
+F1: 0.679266259033
+
+
+
+
+

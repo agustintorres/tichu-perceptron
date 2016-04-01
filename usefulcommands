@@ -1,0 +1,3 @@
+python perceptron.py tichu_hands.training allCombined allCombined.model
+
+python controller.py student tichu_hands.dev_test allCombined.model myDotProductPredictor
